@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#11110f">
+<meta name="description" content="Luga Bazar — Discover premium fashion and timeless style.">
+<title>Luga Bazar | Premium Fashion</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<!-- EmailJS: Used ONLY for customer details -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<style>
+:root{
+--bg:#f8f7f3;
+--white:#fff;
+--dark:#151512;
+--muted:#85847e;
+--gold:#b79a60;
+--line:#e9e6de;
+--serif:'Playfair Display',serif;
+--sans:'DM Sans',sans-serif;
+--shadow:0 15px 45px rgba(0,0,0,.07);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+font-family:var(--sans);
+background:var(--bg);
+color:var(--dark);
+overflow-x:hidden;
+-webkit-font-smoothing:antialiased;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+.hidden{display:none!important}
+
+.topline{
+background:#171714;color:#e9dfc9;
+text-align:center;padding:10px;
+font-size:10px;letter-spacing:2px
+}
+
+header{
+height:78px;padding:0 6%;
+display:flex;align-items:center;justify-content:space-between;
+background:#ffffffed;backdrop-filter:blur(15px);
+position:sticky;top:0;z-index:50;
+border-bottom:1px solid var(--line)
+}
+
+.brand{display:flex;align-items:center;gap:11px}
+.logo{width:43px;height:43px;border-radius:50%;object-fit:cover;background:#eee}
+.brandname{font-family:var(--serif);font-size:25px;letter-spacing:-1px}
+.brandname span{color:var(--gold)}
+.nav{display:flex;gap:28px;font-size:12px;font-weight:600;letter-spacing:1px}
+.nav a:hover{color:var(--gold)}
+.header-right{display:flex;align-items:center;gap:13px}
+.iconbtn{
+width:40px;height:40px;border:1px solid var(--line);
+background:white;border-radius:50%;font-size:17px
+}
+.menu-btn{display:none}
+
+.container{width:min(1240px,90%);margin:auto}
+
+.hero{
+min-height:520px;background:#171714;
+position:relative;overflow:hidden;
+display:flex;align-items:center;color:white
+}
+.hero:after{
+content:"";position:absolute;inset:0;
+background:linear-gradient(90deg,#11110ff2 0%,#11110fb5 48%,transparent 100%);
+z-index:1
+}
+.hero-bg{
+position:absolute;inset:0;width:100%;height:100%;
+object-fit:cover;opacity:.65
+}
+.hero-content{
+position:relative;z-index:2;width:min(620px,90%);
+margin-left:9%;padding:80px 0;
+animation:rise 1s ease
+}
+.eyebrow{
+font-size:10px;letter-spacing:4px;
+color:#d2b77d;font-weight:700;text-transform:uppercase
+}
+.hero h1{
+font:600 clamp(43px,7vw,78px)/1.1 var(--serif);
+margin:22px 0
+}
+.hero h1 em{color:#d6bc86;font-weight:500}
+.hero p{font-size:14px;line-height:1.9;color:#d1d0c9;max-width:440px}
+
+.btn{
+border:0;background:var(--dark);color:white;
+padding:15px 25px;font-size:11px;font-weight:700;
+letter-spacing:1.4px;text-transform:uppercase;
+transition:.3s;display:inline-flex;
+align-items:center;justify-content:center;gap:10px
+}
+.btn:hover{background:var(--gold);transform:translateY(-3px)}
+.btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.btn-gold{background:var(--gold);color:#fff}
+.btn-light{background:white;color:var(--dark);border:1px solid var(--line)}
+.hero .btn{margin-top:30px}
+
+.section{padding:85px 0}
+.section-head{text-align:center;margin-bottom:38px}
+.section-head .eyebrow{color:var(--gold)}
+.section-head h2{font:600 clamp(30px,4vw,43px) var(--serif);margin:12px 0}
+.section-head p{font-size:12px;color:var(--muted)}
+
+.category-row{
+display:flex;justify-content:center;gap:10px;
+flex-wrap:wrap;margin:0 0 32px
+}
+.chip{
+border:1px solid var(--line);background:white;
+padding:11px 19px;border-radius:30px;
+font-size:11px;transition:.2s
+}
+.chip.active,.chip:hover{
+background:var(--dark);color:white;border-color:var(--dark)
+}
+
+.search-wrap{max-width:550px;margin:0 auto 35px;position:relative}
+.search-wrap input{
+width:100%;padding:16px 48px 16px 20px;
+border:1px solid var(--line);background:white;
+border-radius:4px;outline:none;font-size:13px
+}
+.search-wrap input:focus{border-color:var(--gold)}
+.search-symbol{position:absolute;right:18px;top:14px;font-size:20px;color:var(--muted)}
+
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.product-card{
+background:white;overflow:hidden;position:relative;
+transition:.35s;box-shadow:0 3px 20px #00000006;
+animation:rise .6s ease both
+}
+.product-card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
+.product-image{height:390px;position:relative;background:#eeece6;overflow:hidden}
+.product-image img{
+width:100%;height:100%;object-fit:cover;transition:transform .7s
+}
+.product-card:hover .product-image img{transform:scale(1.055)}
+.sale-tag{
+position:absolute;top:15px;left:15px;background:var(--dark);
+color:white;padding:8px 12px;font-size:9px;letter-spacing:1px
+}
+.product-info{padding:21px}
+.product-category{font-size:9px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+.product-info h3{font:600 20px var(--serif);margin:9px 0}
+.price{display:flex;align-items:center;gap:10px;margin:12px 0 18px}
+.price strong{font-size:17px}
+.old-price{text-decoration:line-through;color:#aaa;font-size:12px}
+.product-actions{display:flex;gap:9px}
+.product-actions button{flex:1}
+.product-actions .btn{padding:13px 10px;font-size:9px}
+.view-btn{background:white;border:1px solid var(--line);color:var(--dark)}
+.empty{text-align:center;padding:50px;color:var(--muted);grid-column:1/-1}
+
+.benefits{background:#efede6;padding:45px 0}
+.benefit-grid{
+display:grid;grid-template-columns:repeat(4,1fr);
+gap:20px;text-align:center
+}
+.benefit-grid div{padding:15px}
+.benefit-grid b{font:500 18px var(--serif);display:block;margin:10px}
+.benefit-grid span{font-size:11px;color:var(--muted)}
+
+footer{background:#151512;color:white;padding:65px 0 20px}
+.footer-grid{
+display:grid;grid-template-columns:2fr 1fr 1fr;
+gap:50px;padding-bottom:45px
+}
+.footer-brand{font:600 32px var(--serif);margin-bottom:15px}
+footer p,footer a{font-size:12px;color:#aaa;line-height:2}
+footer h4{font-size:11px;letter-spacing:2px;margin-bottom:18px}
+.footer-links{display:grid;gap:9px}
+.copyright{
+border-top:1px solid #333;padding-top:20px;
+text-align:center;color:#777;font-size:10px
+}
+
+.page{min-height:80vh;padding:45px 0 85px;animation:fade .35s}
+.back{border:0;background:none;color:#777;font-size:12px;margin-bottom:25px}
+.back:hover{color:var(--gold)}
+
+.product-detail{display:grid;grid-template-columns:1.1fr .9fr;gap:55px}
+.gallery-main{height:580px;background:#ece9e1;overflow:hidden}
+.gallery-main img{width:100%;height:100%;object-fit:cover}
+.thumbs{display:flex;gap:10px;margin-top:12px;overflow:auto}
+.thumb{
+width:85px;height:95px;flex-shrink:0;
+border:2px solid transparent;cursor:pointer;object-fit:cover
+}
+.thumb.active{border-color:var(--gold)}
+.detail-info{padding-top:25px}
+.detail-info h1{font:600 40px var(--serif);margin:12px 0}
+.detail-info .description{font-size:13px;color:#777;line-height:1.9;margin:20px 0}
+.detail-price{font-size:26px;font-weight:700}
+.detail-price del{font-size:15px;color:#aaa;margin-left:12px}
+.field-label{
+display:block;font-size:10px;letter-spacing:1px;
+font-weight:700;margin:20px 0 9px;text-transform:uppercase
+}
+select,.field{
+width:100%;border:1px solid var(--line);
+padding:15px;background:white;outline:none;border-radius:3px;font-size:13px
+}
+.detail-info .btn{width:100%;margin-top:25px}
+.reviews{margin-top:75px}
+.reviews h2{font:600 30px var(--serif);margin-bottom:10px}
+.review-note{color:#999;font-size:11px;margin-bottom:20px}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.review{background:white;padding:20px;border:1px solid var(--line)}
+.stars{color:#bc9d5d;letter-spacing:3px}
+.review b{display:block;font-size:12px;margin:10px 0}
+.review p{font-size:11px;color:#888;line-height:1.7}
+
+.checkout-grid{display:grid;grid-template-columns:1fr .8fr;gap:35px}
+.panel{background:white;padding:30px;border:1px solid var(--line)}
+.panel h2{font:600 28px var(--serif);margin-bottom:8px}
+.panel .sub{font-size:12px;color:#999;margin-bottom:25px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.form-group.full{grid-column:1/-1}
+.form-group label{
+display:block;font-size:10px;font-weight:700;
+letter-spacing:1px;margin-bottom:8px
+}
+.form-group input,.form-group textarea{
+width:100%;padding:14px;border:1px solid var(--line);
+outline:none;background:#fcfbf8;font-size:12px;border-radius:3px
+}
+.form-group textarea{min-height:105px;resize:vertical}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--gold)}
+.summary-image{width:100%;height:240px;object-fit:cover;margin-bottom:18px;background:#eee}
+.summary-name{font:600 23px var(--serif);margin-bottom:10px}
+.summary-row{
+display:flex;justify-content:space-between;
+padding:13px 0;border-bottom:1px solid var(--line);font-size:12px
+}
+.summary-row.total{font-weight:700;font-size:16px;border:0}
+
+.payment-box{
+text-align:center;max-width:620px;margin:auto;
+background:white;padding:35px;border:1px solid var(--line)
+}
+.qr{width:230px;height:230px;object-fit:contain;margin:22px auto;background:#eee}
+.upload{
+border:1px dashed #c8b98e;background:#fbfaf6;
+padding:25px;margin:20px 0;cursor:pointer
+}
+.upload input{max-width:100%;font-size:11px}
+
+.confirmation{
+max-width:650px;margin:25px auto;text-align:center;
+background:white;padding:55px 30px;border:1px solid var(--line)
+}
+.checkmark{
+width:75px;height:75px;border-radius:50%;
+background:#f1eee5;color:#9c8049;font-size:35px;
+display:grid;place-items:center;margin:0 auto 25px
+}
+.confirmation h1{font:600 38px var(--serif);margin:15px}
+.confirmation p{font-size:13px;line-height:1.9;color:#888}
+.order-id{background:#f8f6ef;padding:16px;margin:22px 0;font-size:12px}
+
+.spinner{
+width:17px;height:17px;border:2px solid #ffffff55;
+border-top-color:white;border-radius:50%;
+display:inline-block;animation:spin .7s linear infinite
+}
+.toast{
+position:fixed;bottom:25px;left:50%;
+transform:translateX(-50%);background:#171714;
+color:white;padding:14px 22px;font-size:12px;
+z-index:200;box-shadow:var(--shadow);
+max-width:90%;text-align:center
+}
+.modal-bg{
+position:fixed;inset:0;background:#0009;z-index:100;
+display:grid;place-items:center;padding:15px
+}
+.modal{width:min(650px,100%);max-height:90vh;overflow:auto;background:white;padding:28px}
+.modal-head{display:flex;justify-content:space-between;margin-bottom:20px}
+.modal-head h2{font:600 25px var(--serif)}
+.close{border:0;background:none;font-size:24px}
+.admin-list{display:grid;gap:9px;margin-top:20px}
+.admin-item{
+display:flex;align-items:center;justify-content:space-between;
+padding:12px;background:#f7f6f2;font-size:12px;gap:10px
+}
+.admin-item button{border:0;background:#eee;padding:8px}
+.admin-item .delete{color:#b22}
+.floating-top{
+position:fixed;bottom:20px;right:18px;
+width:42px;height:42px;border-radius:50%;
+background:#171714;color:white;border:0;z-index:40;transition:.3s
+}
+.floating-top:hover{background:var(--gold);transform:translateY(-4px)}
+
+@keyframes rise{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:850px){
+.products{grid-template-columns:repeat(2,1fr)}
+.product-image{height:340px}
+.product-detail{gap:25px}
+.gallery-main{height:480px}
+.benefit-grid{grid-template-columns:repeat(2,1fr)}
+.footer-grid{grid-template-columns:1fr 1fr}
+.footer-grid>div:first-child{grid-column:1/-1}
+}
+
+@media(max-width:600px){
+header{height:66px;padding:0 5%}
+.brandname{font-size:22px}
+.logo{width:36px;height:36px}
+.nav{
+display:none;position:absolute;top:65px;left:0;width:100%;
+padding:23px;background:white;flex-direction:column;
+gap:20px;border-bottom:1px solid var(--line)
+}
+.nav.open{display:flex}
+.menu-btn{display:block}
+.hero{min-height:520px}
+.hero-content{margin-left:6%;padding:65px 0}
+.hero:after{background:linear-gradient(90deg,#11110fdf,#11110f80)}
+.section{padding:60px 0}
+.container{width:92%}
+.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.product-image{height:235px}
+.product-info{padding:12px}
+.product-info h3{font-size:15px}
+.product-info .price{gap:6px;margin:8px 0 12px;flex-wrap:wrap}
+.price strong{font-size:14px}
+.old-price{font-size:10px}
+.product-actions{gap:5px;flex-direction:column}
+.product-actions .btn{padding:11px 5px}
+.sale-tag{top:8px;left:8px;padding:6px;font-size:8px}
+.product-detail{grid-template-columns:1fr;gap:20px}
+.gallery-main{height:430px}
+.detail-info{padding:10px 0}
+.detail-info h1{font-size:32px}
+.review-grid{grid-template-columns:1fr 1fr}
+.checkout-grid{grid-template-columns:1fr}
+.panel{padding:20px}
+.form-grid{grid-template-columns:1fr}
+.form-group.full{grid-column:auto}
+.footer-grid{grid-template-columns:1fr 1fr;gap:25px}
+.footer-grid>div:first-child{grid-column:1/-1}
+.payment-box{padding:23px 15px}
+.confirmation{padding:40px 18px}
+.confirmation h1{font-size:30px}
+}
+@media(max-width:360px){
+.products{grid-template-columns:1fr}
+.product-image{height:330px}
+.review-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{
+scroll-behavior:auto!important;
+animation-duration:.01ms!important;
+transition-duration:.01ms!important;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="topline">COMPLIMENTARY STYLE • PREMIUM QUALITY • MADE FOR YOU</div>
+
+<header>
+<a href="#" class="brand" onclick="goHome();return false">
+<img class="logo" id="logoImage" src="" alt="Luga Bazar logo">
+<div class="brandname">Luga <span>Bazar.</span></div>
+</a>
+
+<nav class="nav" id="nav">
+<a href="#" onclick="goHome();return false">HOME</a>
+<a href="#products" onclick="goHome();return false">COLLECTION</a>
+<a href="#about" onclick="goHome();return false">ABOUT</a>
+<a href="#footer" onclick="goHome();return false">CONTACT</a>
+</nav>
+
+<div class="header-right">
+<button class="iconbtn" onclick="document.getElementById('search').focus()" aria-label="Search">⌕</button>
+<button class="iconbtn menu-btn" onclick="document.getElementById('nav').classList.toggle('open')" aria-label="Menu">☰</button>
+</div>
+</header>
+
+<main id="home">
+
+<section class="hero">
+<img class="hero-bg" id="heroImage" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1800" alt="Fashion collection">
+
+<div class="hero-content">
+<div class="eyebrow">THE NEW FASHION EXPERIENCE</div>
+<h1>Welcome to<br><em>Luga Bazar.</em></h1>
+<p>Discover exceptional fashion, timeless designs and carefully selected pieces made to elevate your everyday style.</p>
+<button class="btn btn-gold" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">EXPLORE COLLECTION ↗</button>
+</div>
+</section>
+
+<section class="section" id="products">
+<div class="container">
+<div class="section-head">
+<div class="eyebrow">CURATED FOR YOUR STYLE</div>
+<h2>Our Collection</h2>
+<p>Find your signature look with Luga Bazar.</p>
+</div>
+
+<div class="search-wrap">
+<input id="search" type="search" placeholder="Search products, clothing, styles..." oninput="renderProducts()">
+<span class="search-symbol">⌕</span>
+</div>
+
+<div class="category-row" id="categories">
+<button class="chip active" onclick="setCategory('All',this)">All Products</button>
+<button class="chip" onclick="setCategory('Men',this)">Men</button>
+<button class="chip" onclick="setCategory('Women',this)">Women</button>
+<button class="chip" onclick="setCategory('Accessories',this)">Accessories</button>
+<button class="chip" onclick="setCategory('Other',this)">Other</button>
+</div>
+
+<div class="products" id="productGrid"></div>
+</div>
+</section>
+
+<section class="benefits" id="about">
+<div class="container benefit-grid">
+<div><span>✧</span><b>Premium Quality</b><span>Carefully selected products</span></div>
+<div><span>◇</span><b>Secure Ordering</b><span>Easy order experience</span></div>
+<div><span>↗</span><b>Delivery Service</b><span>Delivery across Nepal</span></div>
+<div><span>♡</span><b>Customer Care</b><span>Here to help you</span></div>
+</div>
+</section>
+</main>
+
+<!-- PRODUCT DETAIL -->
+<section class="page hidden" id="detailPage">
+<div class="container">
+<button class="back" onclick="goBack()">← BACK TO COLLECTION</button>
+
+<div class="product-detail">
+<div>
+<div class="gallery-main"><img id="detailImage" src="" alt="Product"></div>
+<div class="thumbs" id="thumbs"></div>
+</div>
+
+<div class="detail-info">
+<div class="eyebrow" id="detailCategory"></div>
+<h1 id="detailName"></h1>
+<div class="detail-price" id="detailPrice"></div>
+<div style="font-size:11px;color:#999;margin-top:10px">✦ Premium collection from Luga Bazar</div>
+<p class="description" id="detailDescription"></p>
+
+<label class="field-label">Select Size</label>
+<select id="size">
+<option value="S">Small (S)</option>
+<option value="M" selected>Medium (M)</option>
+<option value="L">Large (L)</option>
+<option value="XL">Extra Large (XL)</option>
+<option value="Free Size">Free Size</option>
+</select>
+
+<label class="field-label">Quantity</label>
+<select id="quantity">
+<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+</select>
+
+<button class="btn btn-gold" onclick="startCheckout()">BUY NOW — CONTINUE →</button>
+
+<div class="reviews">
+<h2>Customer Feedback</h2>
+<p class="review-note">Illustrative preview reviews for store design. Replace with verified customer reviews before publishing.</p>
+<div class="review-grid" id="reviews"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CHECKOUT -->
+<section class="page hidden" id="checkoutPage">
+<div class="container">
+<button class="back" onclick="goBack()">← BACK TO PRODUCT</button>
+
+<div class="section-head">
+<div class="eyebrow">ALMOST YOURS</div>
+<h2>Complete Your Order</h2>
+<p>Please provide accurate delivery details.</p>
+</div>
+
+<div class="checkout-grid">
+<div class="panel">
+<h2>Delivery Information</h2>
+<p class="sub">Your details will be used for order processing and delivery.</p>
+
+<form id="customerForm">
+<div class="form-grid">
+
+<div class="form-group full">
+<label>FULL NAME *</label>
+<input name="customer_name" required placeholder="Enter your full name" autocomplete="name">
+</div>
+
+<div class="form-group">
+<label>PHONE NUMBER *</label>
+<input name="customer_phone" required type="tel" pattern="[0-9+ -]{7,18}" placeholder="98XXXXXXXX" autocomplete="tel">
+</div>
+
+<div class="form-group">
+<label>EMAIL ADDRESS *</label>
+<input name="customer_email" required type="email" placeholder="your@email.com" autocomplete="email">
+</div>
+
+<div class="form-group full">
+<label>FULL DELIVERY ADDRESS *</label>
+<textarea name="customer_address" required placeholder="Province, district, city, municipality, ward, street, house details..."></textarea>
+</div>
+
+<div class="form-group full">
+<label>ADDITIONAL DELIVERY NOTES (OPTIONAL)</label>
+<textarea name="delivery_notes" placeholder="Landmark or special instructions"></textarea>
+</div>
+
+</div>
+
+<button class="btn btn-gold" type="submit" id="customerSubmit" style="width:100%;margin-top:25px">CONTINUE TO PAYMENT →</button>
+</form>
+</div>
+
+<div class="panel">
+<h2>Order Summary</h2>
+<p class="sub">Review your selected product.</p>
+<img class="summary-image" id="summaryImage" src="" alt="Selected product">
+<div class="summary-name" id="summaryName"></div>
+<div class="summary-row"><span>Selected size</span><b id="summarySize"></b></div>
+<div class="summary-row"><span>Quantity</span><b id="summaryQty"></b></div>
+<div class="summary-row"><span>Product price</span><b id="summaryUnit"></b></div>
+<div class="summary-row"><span>Delivery</span><b>Confirm with store</b></div>
+<div class="summary-row total"><span>Subtotal</span><b id="summaryTotal"></b></div>
+<p style="font-size:10px;color:#999;line-height:1.7">Delivery charges, if applicable, will be confirmed by the store before dispatch.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PAYMENT -->
+<section class="page hidden" id="paymentPage">
+<div class="container">
+<button class="back" onclick="goBack()">← BACK TO DETAILS</button>
+
+<div class="section-head">
+<div class="eyebrow">SECURE PAYMENT</div>
+<h2>Complete Your Payment</h2>
+<p>Scan the QR code below and upload your payment receipt.</p>
+</div>
+
+<div class="payment-box">
+<div class="eyebrow">YOUR ORDER AMOUNT</div>
+<div style="font:600 42px var(--serif);margin:12px" id="paymentAmount">NPR 0</div>
+<p style="font-size:12px;color:#888" id="paymentProduct"></p>
+
+<img class="qr" id="qrImage" src="" alt="Store payment QR code">
+
+<div style="font-size:11px;color:#888;line-height:1.9">
+<b style="color:#222">Payment instructions</b><br>
+1. Scan the official Luga Bazar QR code.<br>
+2. Pay the exact displayed product amount.<br>
+3. Save your payment screenshot.<br>
+4. Upload the screenshot below.
+</div>
+
+<form id="paymentForm" style="margin-top:20px">
+
+<input type="hidden" name="customer_name" id="payName">
+<input type="hidden" name="customer_phone" id="payPhone">
+<input type="hidden" name="customer_email" id="payEmail">
+<input type="hidden" name="customer_address" id="payAddress">
+<input type="hidden" name="product_name" id="payProduct">
+<input type="hidden" name="product_price" id="payPrice">
+<input type="hidden" name="order_id" id="payOrder">
+
+<div class="upload">
+<div style="font:600 18px var(--serif);margin-bottom:10px">Upload Payment Screenshot</div>
+<p style="font-size:11px;color:#999;margin-bottom:14px">JPG, PNG or PDF. Maximum 4 MB.</p>
+<input type="file" name="payment_screenshot" id="paymentScreenshot" accept="image/png,image/jpeg,application/pdf" required>
+<div id="fileName" style="font-size:11px;color:#9b824d;margin-top:10px"></div>
+</div>
+
+<label style="display:flex;align-items:flex-start;text-align:left;gap:10px;font-size:11px;color:#777;margin:15px 0">
+<input type="checkbox" required style="margin-top:2px">
+I confirm that I have made the payment and uploaded the correct receipt.
+</label>
+
+<button type="submit" class="btn btn-gold" id="paymentSubmit" style="width:100%">
+SUBMIT PAYMENT FOR VERIFICATION →
+</button>
+</form>
+
+<p style="font-size:10px;color:#aaa;margin-top:17px">
+Your payment is not considered verified until the store checks the receipt.
+</p>
+</div>
+</div>
+</section>
+
+<!-- CONFIRMATION -->
+<section class="page hidden" id="confirmationPage">
+<div class="container">
+<div class="confirmation">
+<div class="checkmark">✓</div>
+<div class="eyebrow">ORDER RECEIVED</div>
+<h1>Thank You!</h1>
+<p>Your order details have been submitted. Your payment receipt has been selected for submission. Our team will review your payment and contact you for confirmation.</p>
+
+<div class="order-id">ORDER REFERENCE: <b id="confirmationID"></b></div>
+
+<div style="background:#f8f6ef;padding:20px;margin:20px 0">
+<div style="font:600 19px var(--serif);margin-bottom:8px">Waiting for Confirmation</div>
+<p style="font-size:11px">Your order is currently pending payment verification. Please wait for our team to confirm your payment.</p>
+</div>
+
+<p style="font-size:11px;color:#aaa">Please keep your order reference for future communication.</p>
+<button class="btn btn-gold" onclick="goHome()" style="margin-top:25px">RETURN TO STORE →</button>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<div class="footer-brand">Luga Bazar.</div>
+<p>Discover your style. Experience premium fashion.<br>Bringing exceptional clothing and timeless looks to your wardrobe.</p>
+</div>
+
+<div>
+<h4>QUICK LINKS</h4>
+<div class="footer-links">
+<a href="#" onclick="goHome();return false">Home</a>
+<a href="#products" onclick="goHome();return false">Collection</a>
+<a href="#about" onclick="goHome();return false">About Us</a>
+</div>
+</div>
+
+<div>
+<h4>CONTACT</h4>
+<div class="footer-links">
+<a id="footerPhone" href="#">Phone: Add your number</a>
+<a id="footerEmail" href="#">Email: Add your email</a>
+<a href="#">Nepal</a>
+</div>
+</div>
+</div>
+
+<div class="copyright">© <span id="year"></span> LUGA BAZAR. ALL RIGHTS RESERVED.</div>
+</div>
+</footer>
+
+<!-- STORE MANAGER -->
+<div class="modal-bg hidden" id="adminModal">
+<div class="modal">
+
+<div class="modal-head">
+<h2>Store Manager</h2>
+<button class="close" onclick="closeAdmin()">×</button>
+</div>
+
+<p style="font-size:11px;color:#888;margin-bottom:20px">Add, edit and remove products from your store. Changes are saved in this browser.</p>
+
+<form id="productForm">
+<input type="hidden" id="editId">
+
+<div class="form-grid">
+<div class="form-group full"><label>PRODUCT NAME *</label><input class="field" id="pName" required placeholder="Premium Cotton Shirt"></div>
+<div class="form-group"><label>SELLING PRICE (NPR) *</label><input class="field" id="pPrice" type="number" min="1" required></div>
+<div class="form-group"><label>ORIGINAL PRICE (NPR)</label><input class="field" id="pOld" type="number" min="0"></div>
+<div class="form-group"><label>CATEGORY</label><select class="field" id="pCategory"><option>Men</option><option>Women</option><option>Accessories</option><option>Other</option></select></div>
+<div class="form-group"><label>IMAGE URLS</label><input class="field" id="pImages" required placeholder="Image URL 1, Image URL 2, ..."></div>
+<div class="form-group full"><label>PRODUCT DESCRIPTION</label><textarea class="field" id="pDescription" placeholder="Product details, fabric, fit..."></textarea></div>
+</div>
+
+<button class="btn btn-gold" type="submit" style="width:100%;margin-top:18px" id="saveProduct">SAVE PRODUCT</button>
+</form>
+
+<div class="admin-list" id="adminList"></div>
+
+<hr style="margin:25px 0;border:0;border-top:1px solid #eee">
+
+<h3 style="font:600 20px var(--serif);margin-bottom:15px">Store Appearance</h3>
+
+<div class="form-group"><label>LOGO IMAGE URL</label><input class="field" id="logoURL" placeholder="Paste your logo image URL"></div>
+<div class="form-group" style="margin-top:12px"><label>HERO BACKGROUND IMAGE URL</label><input class="field" id="heroURL" placeholder="Paste banner image URL"></div>
+<div class="form-group" style="margin-top:12px"><label>PAYMENT QR IMAGE URL</label><input class="field" id="qrURL" placeholder="Paste your QR image URL"></div>
+<div class="form-group" style="margin-top:12px"><label>STORE PHONE</label><input class="field" id="storePhone" placeholder="+977 98XXXXXXXX"></div>
+<div class="form-group" style="margin-top:12px"><label>STORE EMAIL</label><input class="field" id="storeEmail" placeholder="yourstore@email.com"></div>
+
+<button class="btn btn-gold" style="width:100%;margin-top:18px" onclick="saveAppearance()">SAVE STORE SETTINGS</button>
+</div>
+</div>
+
+<button class="floating-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+<div class="toast hidden" id="toast"></div>
+
+<script>
+/* ==========================================
+   LUGA BAZAR CONFIGURATION
+========================================== */
+
+const CONFIG={
+ emailPublicKey:"6erjYuJfp4rK9fAC6",
+ serviceID:"service_ftvqdei",
+ customerTemplate:"template_04bxu5b",
+ logo:"",
+ qr:"",
+ phone:"",
+ email:""
+};
+
+/* ==========================================
+   EMAILJS INITIALIZATION
+   ONLY USED FOR CUSTOMER DETAILS
+========================================== */
+
+let emailInitialized=false;
+
+try{
+ if(window.emailjs){
+  emailjs.init({
+   publicKey:CONFIG.emailPublicKey
+  });
+  emailInitialized=true;
+ }
+}catch(error){
+ console.error("EmailJS initialization error:",error);
+}
+
+function emailReady(){
+ return emailInitialized && !!window.emailjs;
+}
+
+/* DEMO PRODUCTS */
+
+const defaultProducts=[
+{
+id:"LB001",
+name:"Premium Classic Blazer",
+category:"Men",
+price:4500,
+oldPrice:6500,
+images:[
+"https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=900",
+"https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=900"
+],
+description:"An elegant premium blazer with a timeless silhouette. Perfect for formal occasions and elevated everyday styling."
+},
+{
+id:"LB002",
+name:"Luxury Women's Outfit",
+category:"Women",
+price:3200,
+oldPrice:4800,
+images:[
+"https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900",
+"https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900"
+],
+description:"A sophisticated outfit designed for comfort, confidence and a beautiful contemporary look."
+},
+{
+id:"LB003",
+name:"Premium Streetwear Jacket",
+category:"Men",
+price:2800,
+oldPrice:3900,
+images:[
+"https://images.unsplash.com/photo-1551028719-00167b16eac5?w=900",
+"https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=900"
+],
+description:"A versatile streetwear essential made for modern everyday fashion."
+},
+{
+id:"LB004",
+name:"Elegant Summer Dress",
+category:"Women",
+price:2500,
+oldPrice:3500,
+images:[
+"https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=900",
+"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900"
+],
+description:"A beautifully styled summer dress with a graceful and comfortable fit."
+},
+{
+id:"LB005",
+name:"Classic Fashion Accessories",
+category:"Accessories",
+price:1500,
+oldPrice:2200,
+images:[
+"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900"
+],
+description:"A refined accessory to complete your personal style."
+},
+{
+id:"LB006",
+name:"Premium Casual Wear",
+category:"Other",
+price:1900,
+oldPrice:2700,
+images:[
+"https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=900"
+],
+description:"A modern wardrobe essential with a premium look and comfortable feel."
+}
+];
+
+let products=loadProducts();
+let category="All";
+let selected=null;
+let customer={};
+let orderID="";
+let qty=1;
+let chosenSize="M";
+
+/* PRODUCT STORAGE */
+
+function loadProducts(){
+ try{
+  const saved=localStorage.getItem("lb_products");
+  return saved?JSON.parse(saved):defaultProducts;
+ }catch(e){
+  return defaultProducts;
+ }
+}
+
+function saveProducts(){
+ localStorage.setItem("lb_products",JSON.stringify(products));
+}
+
+function money(n){
+ return "NPR "+Number(n).toLocaleString("en-IN");
+}
+
+function safe(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ }[c]));
+}
+
+function toast(msg){
+ const el=document.getElementById("toast");
+ el.textContent=msg;
+ el.classList.remove("hidden");
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(()=>el.classList.add("hidden"),3000);
+}
+
+/* ==========================================
+   HIDDEN BACK NAVIGATION
+========================================== */
+
+let currentPage="home";
+let pageHistory=["home"];
+let isHandlingPop=false;
+
+function navigateTo(id){
+ if(id!=="home" && !document.getElementById(id))return;
+ if(id===currentPage)return;
+
+ if(!isHandlingPop){
+  pageHistory.push(id);
+  history.pushState({lbPage:id},"","#"+id);
+ }
+
+ currentPage=id;
+ renderPage(id);
+}
+
+function renderPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+
+ const home=document.getElementById("home");
+
+ if(id==="home"){
+  home.classList.remove("hidden");
+ }else{
+  home.classList.add("hidden");
+  const page=document.getElementById(id);
+  if(page)page.classList.remove("hidden");
+ }
+
+ document.getElementById("nav").classList.remove("open");
+
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function showPage(id){
+ navigateTo(id);
+}
+
+function goBack(){
+ if(pageHistory.length>1){
+  history.back();
+ }else{
+  goHome();
+ }
+}
+
+function goHome(){
+ if(currentPage==="home"){
+  renderPage("home");
+  return;
+ }
+
+ history.pushState({lbPage:"home"},"","#home");
+ pageHistory.push("home");
+ currentPage="home";
+ renderPage("home");
+}
+
+window.addEventListener("popstate",function(e){
+ let target=e.state?.lbPage;
+
+ if(!target)target="home";
+
+ const index=pageHistory.lastIndexOf(target);
+
+ if(index>=0){
+  pageHistory=pageHistory.slice(0,index+1);
+ }else{
+  pageHistory=["home",target];
+ }
+
+ currentPage=target;
+ isHandlingPop=true;
+ renderPage(target);
+ isHandlingPop=false;
+});
+
+/* PRODUCTS DISPLAY */
+
+function setCategory(c,btn){
+ category=c;
+
+ document.querySelectorAll(".chip").forEach(x=>{
+  x.classList.remove("active");
+ });
+
+ btn.classList.add("active");
+ renderProducts();
+}
+
+function renderProducts(){
+ const search=document.getElementById("search").value.toLowerCase();
+
+ const filtered=products.filter(p=>
+  (category==="All"||p.category===category)&&
+  (p.name.toLowerCase().includes(search)||
+   p.category.toLowerCase().includes(search))
+ );
+
+ const grid=document.getElementById("productGrid");
+
+ if(!filtered.length){
+  grid.innerHTML='<div class="empty">No products found. Try another search.</div>';
+  return;
+ }
+
+ grid.innerHTML=filtered.map(p=>`
+ <article class="product-card">
+ <div class="product-image">
+ <img src="${safe(p.images[0])}" alt="${safe(p.name)}" loading="lazy">
+ ${p.oldPrice>p.price?'<div class="sale-tag">SPECIAL PRICE</div>':''}
+ </div>
+ <div class="product-info">
+ <div class="product-category">${safe(p.category)}</div>
+ <h3>${safe(p.name)}</h3>
+ <div class="price">
+ <strong>${money(p.price)}</strong>
+ ${p.oldPrice>p.price?`<span class="old-price">${money(p.oldPrice)}</span>`:""}
+ </div>
+ <div class="product-actions">
+ <button class="btn" onclick="openProduct('${safe(p.id)}')">ORDER NOW ↗</button>
+ <button class="btn view-btn" onclick="openProduct('${safe(p.id)}')">VIEW</button>
+ </div>
+ </div>
+ </article>
+ `).join("");
+}
+
+/* PRODUCT DETAILS */
+
+function openProduct(id){
+ selected=products.find(p=>p.id===id);
+ if(!selected)return;
+
+ document.getElementById("detailCategory").textContent=selected.category;
+ document.getElementById("detailName").textContent=selected.name;
+
+ document.getElementById("detailPrice").innerHTML=
+ money(selected.price)+
+ (selected.oldPrice>selected.price?` <del>${money(selected.oldPrice)}</del>`:"");
+
+ document.getElementById("detailDescription").textContent=selected.description;
+ document.getElementById("detailImage").src=selected.images[0];
+
+ document.getElementById("thumbs").innerHTML=selected.images.map((img,i)=>`
+ <img class="thumb ${i===0?'active':''}"
+ src="${safe(img)}"
+ onclick="changeImage(${i},this)"
+ alt="Product view ${i+1}">
+ `).join("");
+
+ document.getElementById("size").value="M";
+ document.getElementById("quantity").value="1";
+
+ renderReviews();
+ showPage("detailPage");
+}
+
+function changeImage(i,el){
+ if(!selected)return;
+
+ document.getElementById("detailImage").src=selected.images[i];
+
+ document.querySelectorAll(".thumb").forEach(t=>{
+  t.classList.remove("active");
+ });
+
+ el.classList.add("active");
+}
+
+/* REVIEWS */
+
+const reviewNames=[
+"Aarav","Sanjana","Nisha","Suman","Pratik","Anisha",
+"Rohan","Samiksha","Aayush","Riya","Kritika","Sujan"
+];
+
+const reviewTexts=[
+"Really love the design and overall look.",
+"The style is beautiful and feels premium.",
+"Great-looking product. Happy with the selection.",
+"Very elegant design and a lovely collection.",
+"Looks stylish and matches the description.",
+"Beautiful product presentation and nice quality."
+];
+
+function renderReviews(){
+ const box=document.getElementById("reviews");
+
+ box.innerHTML=Array.from({length:6},(_,i)=>`
+ <div class="review">
+ <div class="stars">★★★★★</div>
+ <b>${reviewNames[i%reviewNames.length]} · Preview</b>
+ <p>${reviewTexts[i%reviewTexts.length]}</p>
+ </div>
+ `).join("");
+}
+
+/* CHECKOUT */
+
+function startCheckout(){
+ if(!selected)return;
+
+ qty=Number(document.getElementById("quantity").value);
+ chosenSize=document.getElementById("size").value;
+
+ document.getElementById("summaryImage").src=selected.images[0];
+ document.getElementById("summaryName").textContent=selected.name;
+ document.getElementById("summarySize").textContent=chosenSize;
+ document.getElementById("summaryQty").textContent=qty;
+ document.getElementById("summaryUnit").textContent=money(selected.price);
+
+ document.getElementById("summaryTotal").textContent=money(selected.price*qty);
+
+ showPage("checkoutPage");
+}
+
+/* ==========================================
+   CUSTOMER DETAILS EMAIL
+   EMAILJS WORKS ONLY HERE
+========================================== */
+
+document.getElementById("customerForm").addEventListener("submit",async function(e){
+
+ e.preventDefault();
+
+ if(!selected)return;
+
+ if(!emailReady()){
+  toast("EmailJS is unavailable. Please try again.");
+  return;
+ }
+
+ const btn=document.getElementById("customerSubmit");
+
+ customer=Object.fromEntries(new FormData(this).entries());
+
+ orderID="LB-"+Date.now().toString().slice(-9);
+
+ customer.product_name=selected.name;
+ customer.product_price=money(selected.price*qty);
+ customer.quantity=qty;
+ customer.selected_size=chosenSize;
+ customer.order_id=orderID;
+ customer.delivery_notes=customer.delivery_notes||"None";
+
+ btn.disabled=true;
+ btn.innerHTML='<span class="spinner"></span> SENDING...';
+
+ try{
+
+  await emailjs.send(
+   CONFIG.serviceID,
+   CONFIG.customerTemplate,
+   {
+    customer_name:customer.customer_name,
+    customer_phone:customer.customer_phone,
+    customer_email:customer.customer_email,
+    customer_address:customer.customer_address,
+    delivery_notes:customer.delivery_notes,
+    product_name:customer.product_name,
+    product_price:customer.product_price,
+    quantity:customer.quantity,
+    selected_size:customer.selected_size,
+    order_id:customer.order_id
+   }
+  );
+
+  preparePayment();
+  showPage("paymentPage");
+
+ }catch(err){
+
+  console.error("Customer email error:",err);
+  toast("Order email failed. Please try again.");
+
+ }finally{
+
+  btn.disabled=false;
+  btn.textContent="CONTINUE TO PAYMENT →";
+
+ }
+
+});
+
+/* ==========================================
+   PAYMENT PREPARATION
+========================================== */
+
+function preparePayment(){
+
+ const total=selected.price*qty;
+
+ document.getElementById("paymentAmount").textContent=money(total);
+
+ document.getElementById("paymentProduct").textContent=
+ selected.name+" • "+qty+" item(s)";
+
+ document.getElementById("qrImage").src=CONFIG.qr||"";
+
+ document.getElementById("payName").value=customer.customer_name;
+ document.getElementById("payPhone").value=customer.customer_phone;
+ document.getElementById("payEmail").value=customer.customer_email;
+ document.getElementById("payAddress").value=customer.customer_address;
+ document.getElementById("payProduct").value=selected.name;
+ document.getElementById("payPrice").value=money(total);
+ document.getElementById("payOrder").value=orderID;
+}
+
+/* ==========================================
+   PAYMENT SCREENSHOT VALIDATION
+   NO EMAILJS INITIALIZATION REQUIRED
+========================================== */
+
+document.getElementById("paymentScreenshot").addEventListener("change",function(){
+
+ const f=this.files[0];
+
+ document.getElementById("fileName").textContent=f?f.name:"";
+
+ if(!f)return;
+
+ const allowedTypes=[
+  "image/png",
+  "image/jpeg",
+  "application/pdf"
+ ];
+
+ if(!allowedTypes.includes(f.type)){
+  toast("Please select a JPG, PNG or PDF file.");
+  this.value="";
+  document.getElementById("fileName").textContent="";
+  return;
+ }
+
+ if(f.size>4*1024*1024){
+  toast("File must be smaller than 4 MB.");
+  this.value="";
+  document.getElementById("fileName").textContent="";
+  return;
+ }
+
+ toast("Screenshot selected successfully.");
+
+});
+
+/* ==========================================
+   PAYMENT SUBMISSION
+   IMPORTANT:
+   NO EMAILJS HERE.
+   NO sendForm().
+   NO attachment configuration.
+   DIRECTLY GO TO CONFIRMATION PAGE.
+========================================== */
+
+document.getElementById("paymentForm").addEventListener("submit",function(e){
+
+ e.preventDefault();
+
+ const file=document.getElementById("paymentScreenshot").files[0];
+
+ if(!file){
+  toast("Please upload your payment screenshot.");
+  return;
+ }
+
+ if(file.size>4*1024*1024){
+  toast("Maximum file size is 4 MB.");
+  return;
+ }
+
+ const allowedTypes=[
+  "image/png",
+  "image/jpeg",
+  "application/pdf"
+ ];
+
+ if(!allowedTypes.includes(file.type)){
+  toast("Invalid file format.");
+  return;
+ }
+
+ const btn=document.getElementById("paymentSubmit");
+
+ btn.disabled=true;
+ btn.innerHTML='<span class="spinner"></span> PROCESSING...';
+
+ /*
+   No EmailJS request.
+   No sendForm.
+   No screenshot email.
+   Proceed directly to confirmation.
+ */
+
+ setTimeout(()=>{
+
+  document.getElementById("confirmationID").textContent=orderID;
+
+  showPage("confirmationPage");
+
+  btn.disabled=false;
+  btn.textContent="SUBMIT PAYMENT FOR VERIFICATION →";
+
+ },700);
+
+});
+
+/* ==========================================
+   PRODUCT MANAGEMENT
+========================================== */
+
+function openAdmin(){
+ document.getElementById("adminModal").classList.remove("hidden");
+ renderAdmin();
+}
+
+function closeAdmin(){
+ document.getElementById("adminModal").classList.add("hidden");
+}
+
+function renderAdmin(){
+
+ document.getElementById("adminList").innerHTML=products.map(p=>`
+ <div class="admin-item">
+ <span><b>${safe(p.name)}</b><br>${money(p.price)}</span>
+ <span>
+ <button onclick="editProduct('${safe(p.id)}')">EDIT</button>
+ <button class="delete" onclick="deleteProduct('${safe(p.id)}')">DELETE</button>
+ </span>
+ </div>
+ `).join("");
+}
+
+document.getElementById("productForm").addEventListener("submit",function(e){
+
+ e.preventDefault();
+
+ const id=document.getElementById("editId").value||"LB"+Date.now();
+
+ const images=document.getElementById("pImages").value
+ .split(",")
+ .map(x=>x.trim())
+ .filter(Boolean);
+
+ if(!images.length){
+  toast("Add at least one image URL.");
+  return;
+ }
+
+ const p={
+  id,
+  name:document.getElementById("pName").value.trim(),
+  price:Number(document.getElementById("pPrice").value),
+  oldPrice:Number(document.getElementById("pOld").value)||0,
+  category:document.getElementById("pCategory").value,
+  images,
+  description:document.getElementById("pDescription").value.trim()
+ };
+
+ const index=products.findIndex(x=>x.id===id);
+
+ if(index>=0){
+  products[index]=p;
+ }else{
+  products.unshift(p);
+ }
+
+ saveProducts();
+ renderProducts();
+ renderAdmin();
+
+ this.reset();
+
+ document.getElementById("editId").value="";
+ document.getElementById("saveProduct").textContent="SAVE PRODUCT";
+
+ toast("Product saved successfully.");
+
+});
+
+function editProduct(id){
+
+ const p=products.find(x=>x.id===id);
+ if(!p)return;
+
+ document.getElementById("editId").value=p.id;
+ document.getElementById("pName").value=p.name;
+ document.getElementById("pPrice").value=p.price;
+ document.getElementById("pOld").value=p.oldPrice||"";
+ document.getElementById("pCategory").value=p.category;
+ document.getElementById("pImages").value=p.images.join(", ");
+ document.getElementById("pDescription").value=p.description;
+
+ document.getElementById("saveProduct").textContent="UPDATE PRODUCT";
+
+ document.querySelector(".modal").scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
+}
+
+function deleteProduct(id){
+
+ if(!confirm("Are you sure you want to delete this product?"))return;
+
+ products=products.filter(p=>p.id!==id);
+
+ saveProducts();
+ renderProducts();
+ renderAdmin();
+
+ toast("Product deleted.");
+}
+
+/* ==========================================
+   STORE APPEARANCE SETTINGS
+========================================== */
+
+function saveAppearance(){
+
+ CONFIG.logo=document.getElementById("logoURL").value.trim();
+ CONFIG.qr=document.getElementById("qrURL").value.trim();
+ CONFIG.phone=document.getElementById("storePhone").value.trim();
+ CONFIG.email=document.getElementById("storeEmail").value.trim();
+
+ const hero=document.getElementById("heroURL").value.trim();
+
+ localStorage.setItem("lb_settings",JSON.stringify({
+  logo:CONFIG.logo,
+  qr:CONFIG.qr,
+  phone:CONFIG.phone,
+  email:CONFIG.email,
+  hero
+ }));
+
+ applyAppearance();
+
+ toast("Store appearance saved.");
+}
+
+function applyAppearance(){
+
+ const logo=document.getElementById("logoImage");
+
+ if(CONFIG.logo){
+  logo.src=CONFIG.logo;
+  logo.style.display="block";
+ }else{
+  logo.style.display="none";
+ }
+
+ if(CONFIG.phone){
+  const p=document.getElementById("footerPhone");
+  p.textContent="Phone: "+CONFIG.phone;
+  p.href="tel:"+CONFIG.phone;
+ }
+
+ if(CONFIG.email){
+  const a=document.getElementById("footerEmail");
+  a.textContent="Email: "+CONFIG.email;
+  a.href="mailto:"+CONFIG.email;
+ }
+}
+
+try{
+
+ const s=JSON.parse(localStorage.getItem("lb_settings")||"{}");
+
+ Object.assign(CONFIG,s);
+
+ document.getElementById("logoURL").value=s.logo||"";
+ document.getElementById("qrURL").value=s.qr||"";
+ document.getElementById("storePhone").value=s.phone||"";
+ document.getElementById("storeEmail").value=s.email||"";
+ document.getElementById("heroURL").value=s.hero||"";
+
+ if(s.hero){
+  document.getElementById("heroImage").src=s.hero;
+ }
+
+ applyAppearance();
+
+}catch(e){
+ console.error("Settings loading error:",e);
+}
+
+/* ==========================================
+   INITIALIZATION
+========================================== */
+
+if(location.hash==="#manage"){
+ openAdmin();
+}
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+renderProducts();
+
+</script>
+</body>
+</html>
